@@ -1,33 +1,44 @@
 import { useState } from 'react';
 
+/**
+ * Component for calculating the sum of two numbers.
+ * Includes input validation and error handling.
+ */
 function SumCalculator() {
-  // State để lưu 2 số và kết quả
-  const [number1, setNumber1] = useState('');
-  const [number2, setNumber2] = useState('');
-  const [result, setResult] = useState(null);
-  const [error, setError] = useState(''); // 👈 Thêm state lỗi
+  // State variables to store input numbers, result, and error message
+  const [number1, setNumber1] = useState(''); // First input number
+  const [number2, setNumber2] = useState(''); // Second input number
+  const [result, setResult] = useState(null); // Result of the sum
+  const [error, setError] = useState(''); // Error message for invalid inputs
 
-  // Hàm tính tổng với validation
+  /**
+   * Function to calculate the sum of two numbers.
+   * Validates inputs and updates the result or error state.
+   */
   const calculateSum = () => {
-    // Reset error và result trước
+    // Reset error and result before calculation
     setError('');
     setResult(null);
 
-    // Kiểm tra input rỗng
-    if (number1 === '' || number2 === '') {
-      setError('⚠️ Vui lòng nhập đầy đủ cả hai số!');
+    // Validate if inputs are not empty
+    if (number1.trim() === '' || number2.trim() === '') {
+      setError('\u26A0 Please enter both numbers!'); // Error for empty inputs
       return;
     }
 
-    // Kiểm tra có phải số hợp lệ không
-    if (isNaN(number1) || isNaN(number2)) {
-      setError('⚠️ Vui lòng nhập số hợp lệ!');
+    // Convert inputs to numbers
+    const num1 = Number(number1);
+    const num2 = Number(number2);
+
+    // Validate if inputs are valid numbers
+    if (isNaN(num1) || isNaN(num2)) {
+      setError('\u26A0 Please enter valid numbers!'); // Error for invalid numbers
       return;
     }
 
-    // Nếu hợp lệ, tính tổng
-    const sum = Number(number1) + Number(number2);
-    setResult(sum);
+    // Calculate the sum if inputs are valid
+    const sum = num1 + num2;
+    setResult(sum); // Update result state
   };
 
   return (
@@ -39,19 +50,20 @@ function SumCalculator() {
       borderRadius: '10px',
       backgroundColor: '#f9f9f9'
     }}>
+      {/* Title */}
       <h1 style={{ textAlign: 'center', color: '#333' }}>
         Sum Calculator
       </h1>
 
-      {/* Input 1 */}
+      {/* Input field for the first number */}
       <div style={{ marginBottom: '15px' }}>
         <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
           Number 1:
         </label>
         <input
-          type="number"
+          type="text"
           value={number1}
-          onChange={(e) => setNumber1(e.target.value)}
+          onChange={(e) => setNumber1(e.target.value)} // Update state on input change
           placeholder="Enter first number"
           style={{
             width: '90%',
@@ -63,15 +75,15 @@ function SumCalculator() {
         />
       </div>
 
-      {/* Input 2 */}
+      {/* Input field for the second number */}
       <div style={{ marginBottom: '15px' }}>
         <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
           Number 2:
         </label>
         <input
-          type="number"
+          type="text"
           value={number2}
-          onChange={(e) => setNumber2(e.target.value)}
+          onChange={(e) => setNumber2(e.target.value)} // Update state on input change
           placeholder="Enter second number"
           style={{
             width: '90%',
@@ -83,7 +95,7 @@ function SumCalculator() {
         />
       </div>
 
-      {/* Button */}
+      {/* Button to trigger sum calculation */}
       <button
         onClick={calculateSum}
         style={{
@@ -102,7 +114,7 @@ function SumCalculator() {
         Calculate Sum
       </button>
 
-      {/* Hiển thị lỗi */}
+      {/* Display error message if any */}
       {error && (
         <div style={{
           padding: '10px',
@@ -116,7 +128,7 @@ function SumCalculator() {
         </div>
       )}
 
-      {/* Hiển thị kết quả */}
+      {/* Display the result if calculation is successful */}
       {result !== null && (
         <div style={{
           padding: '15px',
