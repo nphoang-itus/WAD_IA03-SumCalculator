@@ -26,6 +26,13 @@ function SumCalculator() {
       return;
     }
 
+    // Validate if inputs use the correct decimal format (only '.' is allowed)
+    const decimalRegex = /^\d*\.?\d*$/; // Regex to match valid decimal numbers
+    if (!decimalRegex.test(number1) || !decimalRegex.test(number2)) {
+      setError('\u26A0 Please use "." as the decimal separator!'); // Error for invalid decimal format
+      return;
+    }
+
     // Convert inputs to numbers
     const num1 = Number(number1);
     const num2 = Number(number2);
