@@ -27,7 +27,7 @@ function SumCalculator() {
     }
 
     // Validate if inputs use the correct decimal format (only '.' is allowed)
-    const decimalRegex = /^\d*\,\d*$/; // Regex to match valid decimal numbers
+    const decimalRegex = /^\d*,\d*$/; // Regex to match invalid decimal numbers
     if (decimalRegex.test(number1) || decimalRegex.test(number2)) {
       setError('\u26A0 Please use "." as the decimal separator!'); // Error for invalid decimal format
       return;
@@ -45,7 +45,7 @@ function SumCalculator() {
 
     // Calculate the sum if inputs are valid
     const sum = num1 + num2;
-    setResult(sum); // Update result state
+    setResult(Number(sum.toFixed(4))); // Update result state
   };
 
   return (
